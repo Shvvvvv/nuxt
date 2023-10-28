@@ -6,11 +6,18 @@
 </template>
 
 <script>
+import popUp from '~/plugin/sweet_alert';
 export default {
   methods: {
     tryLogout() {
-      alert("Anda berhasil logout!");
-      this.$router.replace("/");
+      localStorage.clear()
+      popUp.fire({
+        icon: 'success',
+        title: 'Logout',
+        text: 'Anda berhasil logout'
+      }).then(() => {
+        this.$router.replace("/");
+      })
     },
   },
 };

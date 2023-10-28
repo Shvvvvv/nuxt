@@ -35,6 +35,7 @@
 </template>
 
 <script>
+import popUp from '@/plugin/sweet_alert'
 export default {
   name: "IndexPage",
   layout: "empty",
@@ -57,15 +58,26 @@ export default {
           if (res.status == 200) {
             if (res.data.message == "LOGIN SUCCESS") {
               // set localstorage dan mengencrypt tokennya
-              console.log(process.env.SECRET_KEY);
               this.tokenEncrypt = this.$CryptoJS.AES.encrypt(
                 res.data.data.token,
                 process.env.SECRET_KEY
               ).toString();
               localStorage.setItem("token", this.tokenEncrypt);
-              this.$router.replace({ name: "dashboard" });
+              popUp.fire({
+                icon: 'success',
+                title: 'Login',
+                text: res.data.message
+              }).then((res) => {
+                this.$router.replace({ name: "dashboard" });
+              })
             } else {
-              alert(res.data.message);
+              popUp.fire({
+                icon: 'error',
+                color: 'skyblue',
+                timerProgressBar: true,
+                title: 'Oops..',
+                text: res.data.message,
+              })
             }
           }
         })

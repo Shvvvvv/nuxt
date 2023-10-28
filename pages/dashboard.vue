@@ -3,7 +3,7 @@
     <p class="h2">Dashboard</p>
     <div class="row gap-2 p-3">
       <div
-        class="bg-primary rounded col-2 p-2"
+        class="bg-primary text-white rounded col-2 p-2"
         v-for="data in datas"
         :key="data.id"
       >
